@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Skylark Drones Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>🏆 Skylark Drones Dashboard</h1>
+<div class="summary">
+
+    <div class="card">
+        <h2>{{ total_deals }}</h2>
+        <p>Total Deals</p>
+    </div>
+
+    <div class="card">
+        <h2>{{ total_workorders }}</h2>
+        <p>Work Orders</p>
+    </div>
+
+</div>
+
+<!-- DEALS BOARD -->
+
+<h2>Deals Board</h2>
+
+<table border="1" cellpadding="8">
+
+<tr>
+    <th>Name</th>
+    <th>Owner</th>
+    <th>Company</th>
+    <th>Status</th>
+    <th>Priority</th>
+    <th>Value</th>
+</tr>
+
+{% for board in deals["data"]["boards"] %}
+{% for item in board["items_page"]["items"] %}
+
+<tr>
+
+    <td>{{ item["name"] }}</td>
+
+    <td>{{ item["column_values"][0]["text"] }}</td>
+    <td>{{ item["column_values"][1]["text"] }}</td>
+    <td>{{ item["column_values"][2]["text"] }}</td>
+    <td>{{ item["column_values"][4]["text"] }}</td>
+    <td>{{ item["column_values"][5]["text"] }}</td>
+
+</tr>
+
+{% endfor %}
+{% endfor %}
+
+</table>
+
+<br><br>
+
+<!-- WORK ORDERS BOARD -->
+
+<h2>Work Orders Board</h2>
+
+{% for board in workorders["data"]["boards"] %}
+{% for item in board["items_page"]["items"] %}
+
+<h3>{{ item["name"] }}</h3>
+
+<table border="1" cellpadding="6">
+
+<tr>
+    <th>Column ID</th>
+    <th>Value</th>
+</tr>
+
+{% for col in item["column_values"] %}
+<tr>
+    <td>{{ col["id"] }}</td>
+    <td>{{ col["text"] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br><br>
+
+{% endfor %}
+{% endfor %}
+</table>
+
+</body>
+</html>
