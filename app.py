@@ -22,6 +22,5 @@ def home():
         total_deals=total_deals,
         total_workorders=total_workorders
     )
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
